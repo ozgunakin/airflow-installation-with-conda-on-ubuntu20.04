@@ -11,9 +11,9 @@ You can find a step by step guide on how to install anaconda here [https://githu
 Creating an environment is important to easily manage pip packages.
 
 ```text
-conda create --name airflowenv
+conda create --name airflow
 
-conda activate airflowenv
+conda activate airflow
 ```
 
 ## Step 3 - Create an Airflow Directory \(Optional\)
