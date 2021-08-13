@@ -1,4 +1,4 @@
 # Table of contents
 
-* [Apache Airflow Installation with Conda](README.md)
+* [Initial page](README.md)
 
