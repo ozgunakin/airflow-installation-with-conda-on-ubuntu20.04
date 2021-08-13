@@ -78,31 +78,7 @@ CREATE USER 'airflow'@'%' IDENTIFIED BY 'sczq6vP!';
 GRANT ALL PRIVILEGES ON airflow.* TO 'airflow'@'%' WITH GRANT OPTION;
 ```
 
-## Step 9 - Install RabbitMQ \(If you want to create an Airflow Cluster, otherwise you don't need it\)
-
-You can find a step by step guide on how to install RabbitMQ here [https://github.com/ozgunakin/rabbitmq-installation-on-ubuntu20.04](https://github.com/ozgunakin/rabbitmq-installation-on-ubuntu20.04)
-
-## Step 10 - Create an Airflow User in RabbitMQ  \(If you want to create an Airflow Cluster, otherwise you don't need it\)
-
-You need to create and authorize an airflow user in RabbitMQ.
-
-```text
-sudo rabbitmqctl add_user airflow 5Cmj5bw8
-sudo rabbitmqctl set_user_tags airflow administrator
-```
-
-## Step 11 - Create a Virtual Host in RabbitMQ  \(If you want to create an Airflow Cluster, otherwise you don't need it\)
-
-* [x] Go to RabbitMQ URL on your browser. [http://YOUR\_IP:15672](http://10.115.209.137:15672/#/users)
-* [x] Click the Admin button. Then click the virtual hosts button which is placed right on the page.
-
-![](.gitbook/assets/image.png)
-
-* [x] Click "Add a new virtual host" and enter your hostname as airflow. Then click "Add a virtual host".
-
-![](.gitbook/assets/image%20%281%29.png)
-
-## Step 12 - Configure Airflow
+## Step 9 - Configure Airflow
 
 * [x] Open the airflow configuration file.
 
@@ -116,23 +92,34 @@ sudo nano /data/airflow/airflow.cfg
 * broker\_url = amqp://airflow:5Cmj5bw8@10.115.209.137:5672/airflow \#This is needed if you are creating airflow cluster
 * result\_backend = db+mysql://airflow:sczq6vP!@10.115.209.137:3306/airflow
 
-## Step 13 - Inıtilaze Airflow db
+## Step 10 - Inıtilaze Airflow db
 
 ```text
 airflow db init
 ```
 
-## Step 14 - Run Airflow
+## Step 11 - Create Admin User for Webserver
 
-* [x] Run webserver. 
+```text
+airflow users create \
+--email admin@admin.com --firstname admin \
+--lastname admin --password admin \
+--role Admin --username admin
+```
+
+## Step 12 - Run Airflow
+
+* [x] Run webserver. \(Close your terminal after running the code bellow\)
 
 ```text
 airflow webserver
 ```
 
-* [x] Run scheduler asa daemon.
+* [x] Run scheduler as a daemon. \(Run the code using a different terminal\)
 
 ```text
 airflow scheduler -D
 ```
+
+Go to your webserver URL \([http://YOUR\_IP:8080](http://10.113.200.130:8080/home)\)
 
